@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: whoami-service
+  namespace: whoami
+spec:
+  clusterIP: 172.30.250.70
+  clusterIPs:
+  - 172.30.250.70
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  - name: https
+    port: 443
+    protocol: TCP
+    targetPort: 443
+  selector:
+    app: webserver
+  sessionAffinity: None
+  type: ClusterIP
