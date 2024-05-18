@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Know yourself!</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 400;
+        padding: 10;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100vh;
+        background-color: #f4f4f4;
+        vertical-align: auto;
+    }
+    #container {
+        text-align: center;
+        margin-bottom: 20px;
+        vertical-align: middle; /* Align container content vertically */
+    }
+    h1 {
+        font-size: 36px;
+        color: #333;
+    }
+    label {
+        font-size: 20px;
+        color: #333;
+    }
+    input[type="number"] {
+        font-size: 18px;
+        padding: 8px;
+        margin: 6px;
+    }
+    button {
+        font-size: 20px;
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+    p {
+        font-size: 24px;
+        color: #333;
+        margin: 12px 0;
+    }
+    img {
+        width: 200px;
+        margin-bottom: 20px;
+    }
+
+    /* New styles for table */
+    table {
+        align-self: center;
+        width: 80%; /* Adjust table width */
+        border-collapse: collapse;
+        margin-top: 20px; /* Adjust table margin */
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+    }
+    th {
+        background-color: #f2f2f2; /* Table header background color */
+    }
+    .block-content {
+        word-wrap: break-word; /* Wrap the text within the block content */
+    }
+
+    /* Add spacing between input area and blocks */
+    #blockContainer {
+        display: none; /* Initially hide the block container */
+    }
+</style>
+<link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+<div id="container">
+    <img src="diace.png" alt="Graphic">
+    <h1>Know yourself! <br> Please put in your birthday.</h1>
+    <label for="year">Year:</label>
+    <input type="number" id="year" min="1000" max="9999">&nbsp;
+    <label for="month">Month:</label>
+    <input type="number" id="month" min="1" max="12">&nbsp;
+    <label for="day">Day:</label>
+    <input type="number" id="day" min="1" max="31">
+    <button onclick="calculateDigitSum()">Go</button><br><br>
+    <p id="magicNumber"></p>
+</div>
+
+<div id="blockContainer">
+  <!-- Generate blocks from 1 to 100 -->
+  <!-- You can change the number of blocks by modifying the loop limit -->
+  <!-- Currently, it generates blocks from 1 to 100 -->
+  <!-- Feel free to adjust the block styling and layout according to your preference -->
+  <table>
+    <thead>
+        <tr>
+            <th>Block number</th>
+            <th>Pro</th>
+            <th>Con</th>
+            <th>Good</th>
+            <th>Bad</th>
+        </tr>
+    </thead>
+    <tbody>
+    <script>
+        // Define an array to store block content for each block number
+        var blockContent = {
+    "1": [
+        "Leadership/cohesion: innovation, reform, independence, self-confidence, justice, integrity, courage, decisiveness, principled persistence",
+        "Desire to dominate: Arrogant, self-centered, competitive, face-conscious, only attacking but not defending, strong at first but weak at last, stubborn, impatient, strong rebellious factor",
+        "Too self-centered, supporting role, no face, impatient",
+        "Be a leader who cares about followers"
+    ],
+    "2": [
+        "Tolerance, elegance, coordination, cooperation, attention to detail, intuition, insight, artistic talent, aesthetic sense, family-oriented",
+        "Strong dependence, lack of security, talkativeness and low stress tolerance, conservative, indecisive, fragile, and willing to compromise",
+        "Insecure, extremely dependent, slow and indecisive",
+        "Believe in your decision, leverage, and face it bravely"
+    ],
+    "3": [
+        "Vitality. Passion. Versatile. Performance. Communication. Social skills. Innocence. Optimism. Imagination. Creativity. Wit. Eloquence. Curiosity. Love of learning.",
+        "Childish. Unreasonable. Lack of direction. Outspoken. Exaggerated. Too intuitive. Easily deceived. Self-doubting. Self-willed. Jealous. Distracted. Unskilled.",
+        "Too casual, lack of goals, easily misled",
+        "Make good use of interpersonal relationships to make up for shortcomings and achieve goals"
+    ],
+    "4": [
+        "Practical, responsible, executive, organized, stable, reliable, professional, detail-oriented, clear direction, persistent, crisis-aware, family-oriented",
+        "Too formal, boring life, refuse to change, lack of flexibility, narrow-minded, too focused on money, obsessed with details, ignore the overall situation, overbearing in emotions, self-limiting",
+        "Clutter, change, instability, family problems",
+        "Learn to be a good person, learn to relax, learn to adapt"
+    ],
+    "5": [
+        "For the freedom revolution, brave and adventurous, original and unconventional, humorous, expressive, knowledge-seeking, exploratory, sociable, enthusiastic, helpful, versatile",
+        "Escaping from reality, loving to procrastinate, flashy, frivolous, fickle, lacking perseverance, too willful, too impulsive, mass-communicating, impulsive, wasteful, easily trusting",
+        "Afraid of commitment, pressure, loneliness, and lack of freedom",
+        "In addition to freedom, happiness in life also requires responsibility"
+    ],
+    "6": [
+        "Dedication, care, compassion, benevolence, listening, healing, self-healing, responsibility, diligence, practicality, perfectionism",
+        "Too kind, too nosy, too helpful, blindly giving at the expense of oneself, benefiting others, picky, demanding, concerned about gains and losses, conservative and closed",
+        "Burn yourself to light up others",
+        "Solve your own problems first, then solve others'"
+    ],
+    "7": [
+        "Rational, precise, analytical, mysterious, reserved, knowledgeable, self-taught, intuitive, truth-seeking, cautious",
+        "Arrogant, narcissistic, suspicious, lonely, indifferent, scheming, deceitful, arbitrary, manipulative, persistent, stubborn",
+        "Burdened by my own doubts",
+        "Accept the truth of the matter, face it and resolve it"
+    ],
+    "8": [
+        "Leadership, business acumen, excellent strategy, emphasis on power and control, wealth creation, financial management, insight, ambition, vision, emphasis on talent, inheritance, helping others, decisive and courageous",
+        "Power-hungry, aggressive, eager to succeed, opportunistic, taking shortcuts, profiteering, vain, stubborn, emotional and pragmatic",
+        "Sacrifice for money",
+        "In addition to fame and fortune, people's life also includes friendship and blessings"
+    ],
+    "9": [
+        "Philanthropy, humanity, fantasy, faith, spirituality, understanding, plasticity, high sense of justice, peacemaker, naturalism",
+        "Negative, timid, over-indulgent, emotionally fragile, self-deprecating, pretentious, in a dilemma, daydreaming, detached from reality",
+        "Daydreamer, overly obsessed, difficult to detach",
+        "Dreams without efforts to realize them are just delusions."
+    ],
+    "10": [
+        "The purest 1 energy. The most domineering 1, with a strong creative factor"
+    ],
+    "11": [
+        "Strong and gentle. Smart, compassionate, likes to take care of others, but afraid of being taken care of. Super action, the most talented general"
+    ],
+    "12": [
+        "Talented and creative. Outwardly active and optimistic, but inwardly sensitive and cautious. Artistic people who do things based on personal preferences. Suitable for industries related to entertainment and eloquence."
+    ],
+    "13": [
+        "Independent on the outside, childish on the inside. The most creative type 4, but because of insecurity and needing the approval of others, it is difficult to show their creativity."
+    ],
+    "14": [
+        "The most conservative 5, not fond of showing off. Full of the energy of 4, they need stability to drive the creativity of 1."
+    ],
+    "15": [
+        "The most introverted 6, whose inner desires are difficult to express. Idealistic, intelligent, innovative, good at communicating with others, and has the ability to heal people's hearts, but must accept the values of oneself or others, otherwise arrogant opinions will keep people away"
+    ],
+    "16": [
+        "7. Strong in work but weakest in emotion. Possessing high intuition and wisdom, the energy of creation comes from love. Potential is mostly related to the spiritual realm."
+    ],
+    "17": [
+        "The most powerful 8. Independence, leadership, excellent mind, analytical ability, strong ambition for fame and fortune. No matter what industry you are in, as long as you are interested, you will get what you want. But be careful about arrogance, especially the paranoia and suspicion of 7 will become an obstacle to your success."
+    ],
+    "18": [
+        "1 represents appeal, 8 represents control; the combination of 9 represents a strong leader. 18/9 is special, and can be a good person or a bad person; it depends on where you use your powerful energy. The goal of life is to benefit others, but you are full of power desires and unconsciously control to gain fame and fortune. What you need most is to find your own value, improve your mind, and use your leadership to inspire others."
+    ],
+    "19": [
+        "Has the most dual personality. Contradictory. Leadership, love to help others, strong on the outside but weak on the inside. 1 has the most creative ability, must use wisdom and love to influence others. 19 will feel isolated and depressed; so you must combine motivation with inner beliefs, inspire others with your own heart, rather than controlling others."
+    ],
+    "20": [
+        "The most gentle. Elegant in speech and manner, artistic talent and aesthetic sense. The most tolerant, but very scary if it is intolerable."
+    ],
+    "21": [
+        "Gentle on the outside, strong on the inside. He is equally creative, but has trouble expressing himself. He only wants others to understand him, not to understand others. His desire to innovate is hindered by human nature. He lacks autonomy and can get along with others harmoniously. He values interpersonal relationships and has ambitions for his career."
+    ],
+    "22": [
+        "Possessing strong management skills, good at coordination, sentimental, goal-oriented, and good at balance, he should be good at coordination and make good use of his excellent insight"
+    ],
+    "23": [
+        "They look kind, but are actually ambitious and competitive (they will quit if they scold them). They are too concerned about their self-image. They are easily hurt and are self-indulgent. The difference between them and 32/5 is that they are better at cooperation and coordination, but also more childish. They are too uncertain about themselves and need to build up confidence and courage."
+    ],
+    "24": [
+        "6 loves to analyze and serve. They are kind, good at interpersonal relationships, and will not refuse. 2, 4, and 6 all have the characteristics of loving to analyze, and will be cranky and hesitant; but 2, 4, and 6 are particularly suitable for serving people; they can use their analytical and service abilities in their careers, such as consulting, advisory, etc."
+    ],
+    "25": [
+        "The most harmonious 7, has something to say, speaks well, has a good appearance, is afraid of being constrained, insists on his own truth, and fights for freedom. He is versatile and can unleash his potential as long as he is serious about doing something. He can choose a wide range of careers."
+    ],
+    "26": [
+        "The most benevolent 8, good at interpersonal relationships, kind in appearance, dedicated to life, the 8 who least wants to be a boss 6 has a very strong sense of morality, which is somewhat contradictory compared to 8's ambitions for career"
+    ],
+    "27": [
+        "The most introverted 9. Inconsistent, kind on the outside but scheming on the inside. Has a lot to do with religious beliefs. The sensitivity of 2 and the introspection of 7 create noble wisdom. Weakness is being too aloof, having strong dissatisfaction with the world, and strong rebellious factor."
+    ],
+    "28": [
+        "The least like 1 in appearance, soft on the outside but strong on the inside. The strong 1 in heart, although soft on the outside and willing to cooperate with others, is actually quite strong and has a desire for fame and fortune, but it is hidden. He is dependent and needs help from others. He feels uneasy when doing things independently. He needs to exert his inner control and business ability, and be honest with others instead of manipulating them."
+    ],
+    "29": [
+        "Willing to give for others, gentle on the outside but strong on the inside. Want to rush, but worried about human feelings. If given a choice, retire soon. Often wronged to do things I don't like, angry inside, love and hate extremes. Play a good role in cooperation and coordination. The more harmonious and non-contentious the heart is, the smoother it will be. Sensitivity is an advantage but also an enemy; avoid stubbornness and compromise. Make good use of aesthetic talent"
+    ],
+    "30": [
+        "Childish, smart and intelligent. Looks young, young at heart. Good at pleasing others. Best at expressing. Definitely a top sales material. Loves the stage and applause. Strong escape factor"
+    ],
+    "31": [
+        "The most expressive and creative combination. Smart on the outside, strong on the inside,l do what she says she will do. A woman who is good at making her husband prosperous and can help her husband. Talented, good attitude on the outside, stubborn on the inside and willing to accept new things. Versatile, but not necessarily persistent"
+    ],
+    "32": [
+        "Top sales. The most expressive 5, full of talent. Can win people's hearts, incite people to act emotionally, good with the opposite sex, gentle and considerate: men make women cry, women make men shake their heads. Do things completely based on interest, and value self-expression. Make good use of the intuition and analytical ability of 2, don't be afraid of change, it will change your life"
+    ],
+    "33": [
+        "The most perfectionist and expressive 6 (with double 3) 33 cares about being appreciated, and is very suitable for creative and performance-oriented careers. They are good at any industry that has direct contact with people, such as actors, teachers, salesmen, salesmen, hosts, etc."
+    ],
+    "34": [
+        "The most outgoing 7, dislikes taking responsibility and taking risks, and looks the least like a 7. Like 43/7, a stable life is your foundation. You are willing to accept new ideas, but you are also afraid of the insecurity of change, and you have a conservative and pragmatic component."
+    ],
+    "35": [
+        "Top Sales. Ambitious, likes to attract attention, and is unwilling to be ordinary. 3 and 5 have a wide range of interests, often unable to grasp the key points, but will be lazy and impatient when taking action. Good at using smart brains (not labor), and brave to take the path."
+    ],
+    "36": [
+        "9 is the most perceptive. They have the best eloquence and talent. They love to express themselves, help others, and have the best learning ability. 3, 6, and 9 have one thing in common: they are spiritual, but they have high demands on themselves and others. They can become outstanding people and incite the masses."
+    ],
+    "37": [
+        "Top Sales, the best speaker. Most likely to betray the boss. 1. Become your own boss. Your introspective ability will gradually emerge. You will have a desire to explore the truth. 37. Have leadership, intuition and optimism. Have a strong interest in art."
+    ],
+    "38": [
+        "Creative, ambitious and visionary. Can be a leader or a wise follower. Friendly and caring philanthropist."
+    ],
+    "39": [
+        "Idealistic, full of fantasies, occasionally unrealistic"
+    ],
+    "40": [
+        "The most loyal 4, the most practical; organizational ability, execution, and seeking a stable life. Extreme, afraid of complexity, not easy to compromise. Must start from reality before developing other potentials"
+    ],
+    "41": [
+        "Calm on the outside, independent on the inside. Loves to manage others, hates to be managed. Has excellent creativity and execution, but needs to balance between stability and freedom. Interests are scattered. Versatile, grasping one strength and continuing to work hard will make it easier to achieve success."
+    ],
+    "42": [
+        "The most compromising type 6, compassionate, keeps things to themselves. Emotional, lend money to others. Bored with life, prone to making wrong choices, because they think too much, limit themselves, and drag their feet"
+    ],
+    "43": [
+        "The most down-to-earth 7. A standard consultant, who speaks with reason and is suitable for being below 1 and above 10,000 people. 3 and 7 are both intelligence numbers, and are interested in the universe and mysterious forces; they are often unrealistic, but require stability and contradictions."
+    ],
+    "44": [
+        "8 is the best at planning. A super dreamer, very rational, clear-minded, and business-minded. 4 and 8 are both the most pragmatic, putting money first and power second. Success but over-analysis is a fatal flaw. Family support is the real driving force."
+    ],
+    "45": [
+        "The most contradictory 9. Stable on the outside but open on the inside, the contradiction between 4 who likes rules and seeks stability and fears change, and 5 who likes to break stability and seek freedom, resulting in inconsistency between words and deeds. In fact, stability is not limitation, and freedom is not laissez-faire. Balance is the kingly way."
+    ],
+    "46": [
+        "The most diligent of 1, loves taking care of people, hard work requires a stable material foundation to assist the inner dream. If life lacks security, there will be obvious insecurity and pickyness. Perfectionism is a stumbling block to your success. You must make good use of your analytical and self-healing abilities."
+    ],
+    "47": [
+        "The 2nd person who is the best at financial management is also the best at analysis. He has extraordinary research and analytical skills and is spontaneous."
+    ],
+    "48": [
+        "Super ability, with a unique life experience"
+    ]
+};
+
+
+        for (var i = 1; i <= 100; i++) {
+            var backgroundColor = getBackgroundColor(i);
+            var textColor = getTextColor(backgroundColor);
+            var contentArray = blockContent[i] || ["No content available"]; // Use the content from the array if available, otherwise use a default message
+            var contentHtml = '';
+            for (var j = 0; j < contentArray.length; j++) {
+                contentHtml += '<td class="block-content">' + contentArray[j] + '</td>';
+            }
+            document.write('<tr id="block' + i + '" style="background-color:' + backgroundColor + '; color: ' + textColor + '"><td class="block-number"><b>' + i + '</b></td>' + contentHtml + '</tr>');
+        }
+
+        // Function to determine background color based on block number
+        function getBackgroundColor(number) {
+            // Example: return "#FF0000"; // Red color for demonstration
+            // You can implement your own logic here to determine the background color based on the block number
+            return '#' + Math.floor(Math.random()*16777215).toString(16); // Random color
+        }
+
+        // Function to determine text color based on background color luminance
+        function getTextColor(backgroundColor) {
+            // Convert hexadecimal color to RGB
+            var r = parseInt(backgroundColor.substring(1, 3), 16);
+            var g = parseInt(backgroundColor.substring(3, 5), 16);
+            var b = parseInt(backgroundColor.substring(5, 7), 16);
+
+            // Calculate luminance
+            var luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+
+            // Choose text color based on luminance
+            return luminance > 0.5 ? '#000000' : '#FFFFFF'; // Black for light backgrounds, white for dark backgrounds
+        }
+    </script>
+    </tbody>
+  </table>
+</div>
+
+<script>
+// Hide the block container initially
+var blockContainer = document.getElementById("blockContainer");
+blockContainer.style.display = "none";
+
+function calculateDigitSum() {
+    var year = document.getElementById("year").value;
+    var month = document.getElementById("month").value;
+    var day = document.getElementById("day").value;
+
+    var yearSum = calculateSum(year);
+    var monthSum = calculateSum(month);
+    var daySum = calculateSum(day);
+
+    var total = yearSum + monthSum + daySum;
+
+    var totalSum = calculateSum(total);
+
+    var doubleDigitSum = totalSum > 9 ? calculateSum(totalSum) : '';
+
+    var output = total + "/" + totalSum + (doubleDigitSum !== '' ? ("/" + doubleDigitSum) : '');
+
+    document.getElementById("magicNumber").innerText = "Your magic number is: " + output;
+
+    // Show the block container
+    blockContainer.style.display = "block";
+
+    // Hide all blocks initially
+    var blocks = document.getElementsByTagName("tr");
+    for (var j = 1; j < blocks.length; j++) {
+        blocks[j].style.display = 'none';
+    }
+
+    // Show blocks matching the magic numbers
+    var magicNumbers = output.split('/');
+    for (var i = 0; i < magicNumbers.length; i++) {
+        var magicNumber = parseInt(magicNumbers[i]);
+        document.getElementById("block" + magicNumber).style.display = 'table-row';
+    }
+}
+
+function calculateSum(number) {
+    var sum = 0;
+    while (number > 0) {
+        sum += number % 10;
+        number = Math.floor(number / 10);
+    }
+    return sum;
+}
+</script>
+</body>
+</html>
